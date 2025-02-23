@@ -136,8 +136,8 @@ export const ReceiptPDF: React.FC<{ data: ReceiptData }> = ({ data }) => {
         <View style={styles.header}>
           <Text style={styles.title}>HÓA ĐƠN BÁN LẺ</Text>
           <Text style={styles.companyInfo}>My Dream Closet Linh Tracy Bui</Text>
-          <Text style={styles.companyInfo}>42 Nguyễn Khắc Hiếu - Trúc Bạch - Ba Đình - Hà Nội</Text>
-          <Text style={styles.companyInfo}>Hotline: 090.090.9890</Text>
+          <Text style={styles.companyInfo}>42 Nguyễn Khắc Hiếu - Trúc Bạch - Ba Đình - HN</Text>
+          <Text style={styles.companyInfo}>Hotline: 0982910485</Text>
         </View>
 
         <View style={styles.customerInfo}>
