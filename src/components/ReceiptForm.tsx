@@ -70,9 +70,89 @@ export const ReceiptForm: React.FC<ReceiptFormProps> = ({ onSubmit }) => {
     return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(price);
   };
 
+  const formStyles = {
+    paper: {
+      p: 4,
+      maxWidth: 600,
+      mx: 'auto',
+      mt: 4,
+      borderRadius: 4,
+      boxShadow: '0 4px 20px rgba(0, 0, 0, 0.08)',
+      background: 'linear-gradient(to bottom right, #ffffff, #fff5f5)',
+    },
+    title: {
+      color: '#bf1922',
+      fontWeight: 600,
+      textAlign: 'center',
+      mb: 4,
+      fontFamily: '"Segoe UI", Roboto, "Helvetica Neue", sans-serif',
+    },
+    subtitle: {
+      color: '#bf1922',
+      fontSize: '1.1rem',
+      fontWeight: 500,
+      mb: 2,
+      mt: 4,
+    },
+    textField: {
+      '& .MuiOutlinedInput-root': {
+        '&:hover fieldset': {
+          borderColor: '#bf1922',
+        },
+        '&.Mui-focused fieldset': {
+          borderColor: '#bf1922',
+        },
+      },
+      '& .MuiInputLabel-root.Mui-focused': {
+        color: '#bf1922',
+      },
+    },
+    addButton: {
+      color: '#bf1922',
+      '&:hover': {
+        backgroundColor: 'rgba(191, 25, 34, 0.04)',
+      },
+    },
+    deleteButton: {
+      color: '#bf1922',
+      '&:hover': {
+        backgroundColor: 'rgba(191, 25, 34, 0.04)',
+      },
+    },
+    submitButton: {
+      mt: 4,
+      backgroundColor: '#bf1922',
+      '&:hover': {
+        backgroundColor: '#a11219',
+      },
+      '&.Mui-disabled': {
+        backgroundColor: '#f8b4b7',
+      },
+      borderRadius: '8px',
+      py: 1.5,
+    },
+    listItem: {
+      bgcolor: 'rgba(191, 25, 34, 0.03)',
+      borderRadius: 2,
+      mb: 1,
+      '&:hover': {
+        bgcolor: 'rgba(191, 25, 34, 0.06)',
+      },
+    },
+    goodsBox: {
+      display: 'flex',
+      gap: 1,
+      mb: 2,
+      '& .MuiTextField-root': {
+        bgcolor: '#ffffff',
+        borderRadius: 1,
+      },
+    },
+  };
+
   return (
-    <Paper elevation={3} sx={{ p: 3, maxWidth: 600, mx: 'auto', mt: 4 }}>
-      <Typography variant="h5" gutterBottom>
+    <Paper elevation={0} sx={formStyles.paper}>
+      <Typography variant="h5" sx={formStyles.title}>
         Tạo Hóa Đơn
       </Typography>
       <Box component="form" onSubmit={handleSubmit}>
@@ -83,6 +163,7 @@ export const ReceiptForm: React.FC<ReceiptFormProps> = ({ onSubmit }) => {
           onChange={(e) => setCustomerName(e.target.value)}
           margin="normal"
           required
+          sx={formStyles.textField}
         />
         <TextField
           fullWidth
@@ -91,6 +172,7 @@ export const ReceiptForm: React.FC<ReceiptFormProps> = ({ onSubmit }) => {
           onChange={(e) => setPhoneNumber(e.target.value)}
           margin="normal"
           required
+          sx={formStyles.textField}
         />
         <TextField
           fullWidth
@@ -101,6 +183,7 @@ export const ReceiptForm: React.FC<ReceiptFormProps> = ({ onSubmit }) => {
           required
           multiline
           rows={2}
+          sx={formStyles.textField}
         />
         <TextField
           fullWidth
@@ -110,18 +193,20 @@ export const ReceiptForm: React.FC<ReceiptFormProps> = ({ onSubmit }) => {
           margin="normal"
           multiline
           rows={2}
+          sx={formStyles.textField}
         />
 
-        <Typography variant="h6" sx={{ mt: 3, mb: 2 }}>
+        <Typography variant="h6" sx={formStyles.subtitle}>
           Danh sách hàng hóa
         </Typography>
 
-        <Box sx={{ display: 'flex', gap: 1, mb: 2 }}>
+        <Box sx={formStyles.goodsBox}>
           <TextField
             label="Tên hàng"
             value={newGood.name}
             onChange={(e) => setNewGood({ ...newGood, name: e.target.value })}
             size="small"
+            sx={formStyles.textField}
           />
           <TextField
             label="Số lượng"
@@ -129,7 +214,7 @@ export const ReceiptForm: React.FC<ReceiptFormProps> = ({ onSubmit }) => {
             value={newGood.quantity}
             onChange={(e) => setNewGood({ ...newGood, quantity: Number(e.target.value) })}
             size="small"
-            sx={{ width: 100 }}
+            sx={{ ...formStyles.textField, width: 100 }}
           />
           <TextField
             label="Đơn giá"
@@ -137,22 +222,27 @@ export const ReceiptForm: React.FC<ReceiptFormProps> = ({ onSubmit }) => {
             value={newGood.price}
             onChange={(e) => setNewGood({ ...newGood, price: Number(e.target.value) })}
             size="small"
-            sx={{ width: 150 }}
+            sx={{ ...formStyles.textField, width: 150 }}
           />
-          <IconButton onClick={handleAddGood} color="primary" title="Thêm hàng hóa">
+          <IconButton onClick={handleAddGood} title="Thêm hàng hóa" sx={formStyles.addButton}>
             <AddIcon />
           </IconButton>
         </Box>
 
         <List>
           {goods.map((good, index) => (
-            <ListItem key={index}>
+            <ListItem key={index} sx={formStyles.listItem}>
               <ListItemText
                 primary={good.name}
                 secondary={`Số lượng: ${good.quantity}, Đơn giá: ${formatPrice(good.price)}`}
               />
               <ListItemSecondaryAction>
-                <IconButton edge="end" onClick={() => handleRemoveGood(index)} title="Xóa">
+                <IconButton 
+                  edge="end" 
+                  onClick={() => handleRemoveGood(index)} 
+                  title="Xóa"
+                  sx={formStyles.deleteButton}
+                >
                   <DeleteIcon />
                 </IconButton>
               </ListItemSecondaryAction>
@@ -163,9 +253,8 @@ export const ReceiptForm: React.FC<ReceiptFormProps> = ({ onSubmit }) => {
         <Button
           type="submit"
           variant="contained"
-          color="primary"
           fullWidth
-          sx={{ mt: 3 }}
+          sx={formStyles.submitButton}
           disabled={goods.length === 0 && !(newGood.name && newGood.quantity > 0 && newGood.price > 0)}
         >
           Tạo hóa đơn
