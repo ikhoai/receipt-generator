@@ -53,12 +53,16 @@ export const ReceiptForm: React.FC<ReceiptFormProps> = ({ onSubmit }) => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    const finalGoods = [...goods];
+    if (newGood.name && newGood.quantity > 0 && newGood.price > 0) {
+      finalGoods.push(newGood);
+    }
     onSubmit({
       customerName,
       phoneNumber,
       address,
       note,
-      goods,
+      goods: finalGoods,
     });
   };
 
@@ -162,7 +166,7 @@ export const ReceiptForm: React.FC<ReceiptFormProps> = ({ onSubmit }) => {
           color="primary"
           fullWidth
           sx={{ mt: 3 }}
-          disabled={goods.length === 0}
+          disabled={goods.length === 0 && !(newGood.name && newGood.quantity > 0 && newGood.price > 0)}
         >
           Tạo hóa đơn
         </Button>

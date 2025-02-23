@@ -59,11 +59,12 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 10,
     color: '#666',
-    marginBottom: 2,
+    marginRight: 5,
   },
   value: {
     fontSize: 12,
-    marginBottom: 8,
+    marginBottom: 12,
+    flex: 1,
   },
   table: {
     marginTop: 10,
@@ -134,31 +135,31 @@ export const ReceiptPDF: React.FC<{ data: ReceiptData }> = ({ data }) => {
       <Page size={[A5_WIDTH, A5_HEIGHT]} style={styles.page}>
         <View style={styles.header}>
           <Text style={styles.title}>HÓA ĐƠN BÁN LẺ</Text>
-          <Text style={styles.companyInfo}>LINH TRACY SHOP</Text>
-          <Text style={styles.companyInfo}>99 Nguyễn Khắc Hiếu, Ba Đình, Hà Nội</Text>
-          <Text style={styles.companyInfo}>Điện thoại: 090.090.9890</Text>
+          <Text style={styles.companyInfo}>My Dream Closet Linh Tracy Bui</Text>
+          <Text style={styles.companyInfo}>42 Nguyễn Khắc Hiếu - Trúc Bạch - Ba Đình - Hà Nội</Text>
+          <Text style={styles.companyInfo}>Hotline: 090.090.9890</Text>
         </View>
 
         <View style={styles.customerInfo}>
           <View style={{ flexDirection: 'row' }}>
-            <View style={{ flexDirection: 'row', flex: 1 }}>
-              <Text style={[styles.label, { marginRight: 5 }]}>Tên khách hàng:</Text>
+            <View style={{ flexDirection: 'row', flex: 1, alignItems: 'baseline' }}>
+              <Text style={styles.label}>Tên khách hàng:</Text>
               <Text style={styles.value}>{data.customerName}</Text>
             </View>
-            <View style={{ flexDirection: 'row', flex: 1 }}>
-              <Text style={[styles.label, { marginRight: 5 }]}>Số điện thoại:</Text>
+            <View style={{ flexDirection: 'row', flex: 1, alignItems: 'baseline' }}>
+              <Text style={styles.label}>Số điện thoại:</Text>
               <Text style={styles.value}>{data.phoneNumber}</Text>
             </View>
           </View>
           
           <View style={{ flexDirection: 'row' }}>
-            <Text style={[styles.label, { marginRight: 5 }]}>Địa chỉ:</Text>
+            <Text style={styles.label}>Địa chỉ:</Text>
             <Text style={styles.value}>{data.address}</Text>
           </View>
 
           {data.note && (
             <View style={{ flexDirection: 'row' }}>
-              <Text style={[styles.label, { marginRight: 5 }]}>Ghi chú:</Text>
+              <Text style={styles.label}>Ghi chú:</Text>
               <Text style={styles.value}>{data.note}</Text>
             </View>
           )}
